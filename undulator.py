@@ -111,6 +111,43 @@ class Beamline:
     def difflimited_div(self, n=1, theta=0):
         undulator = self.undulator
         return (self.lamda_n(n=n, theta=theta) * undulator.L)**0.5 / 2*pi
+    
+    def oscillation_amplitude(self, n=1):
+        beam = self.beam
+        undulator = self.undulator
+        return undulator.lamda_w*undulator.Kmax / (2*pi*beam.gamma0)
+    
+    def source_spot_y(self, n=1, theta=0):
+        beam = self.beam
+        undulator = self.undulator
+        spot_sqr = self.difflimited_spot(n=n, theta=theta)**2
+        spot_sqr += beam.sigy()**2
+        spot_sqr += self.oscillation_amplitude(n=n)**2
+        spot_sqr += (1/12) * beam.sigyp()**2 * undulator.L**2
+        return spot_sqr**0.5
+    
+    def source_spot_x(self, n=1, theta=0):
+        beam = self.beam
+        undulator = self.undulator
+        spot_sqr = self.difflimited_spot(n=n, theta=theta)**2
+        spot_sqr += beam.sigx()**2
+        spot_sqr += self.oscillation_amplitude(n=n)**2
+        spot_sqr += (1/12) * beam.sigxp()**2 * undulator.L**2
+        return spot_sqr**0.5
+    
+    def source_div_y(self, n=1, theta=0):
+        beam = self.beam
+        undulator = self.undulator
+        spot_sqr = self.difflimited_div(n=n, theta=theta)**2
+        spot_sqr += beam.sigyp()**2
+        return spot_sqr**0.5
+    
+    def source_div_x(self, n=1, theta=0):
+        beam = self.beam
+        undulator = self.undulator
+        spot_sqr = self.difflimited_div(n=n, theta=theta)**2
+        spot_sqr += beam.sigxp()**2
+        return spot_sqr**0.5
 
 if __name__=="__main__":
     print(m, hc)
