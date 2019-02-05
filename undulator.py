@@ -1,4 +1,4 @@
-from scipy.constants import c, e, electron_mass, h
+from scipy.constants import c, e, electron_mass, h, pi
 hc = h*c/e
 m = electron_mass*c**2 / e
 
@@ -15,15 +15,17 @@ def photonEnergy_n(E, Keff, lamba_w, theta=0, n=1):
 
 
 class InsertionDevice:
-    def __init__(self, Kmax, lamda_w, Np):
+    def __init__(self, Kmax, lamda_w, Np, L):
         self.Kmax = Kmax
         self.lamda_w = lamda_w
         self.Np = Np
+        self.L = L
         
     def __repr__(self):
         terms = [
             f'Kmax={self.Kmax}',
-            f'Period={self.lamda_w*1e3} mm'
+            f'Period={self.lamda_w*1e3} mm',
+            f'Ncells={self.Np}'
         ]
         return f'InsertionDevice:: ' + ' '.join(terms)
         
@@ -65,7 +67,7 @@ class Beamline:
         self.beam = electronbeam
         
     def __repr__(self):
-        return f'undulator: {self.undulator}\nebeam: {self.beam}'
+        return f'{self.undulator}\n{self.beam}'
         
     def lamda_n(self, n=1, theta=0):
         undulator = self.undulator
@@ -94,12 +96,21 @@ class Beamline:
         return disp_term + energy_term
     
     def spectralwidth_undulator(self, n=1, theta=0):
-        return self.lamda_n(n, theta) / (n * self.undulator.Np)
+        magic_num = 0.225079 # solve sinc(pi.N.x) = sqrt(0.5)
+        return magic_num * self.lamda_n(n, theta) / (n * self.undulator.Np)
     
     def spectralwidth_total(self, n=1, theta=0):
         ebeam = self.spectralwidth_ebeam(n)
         undulator = self.spectralwidth_undulator(n, theta)
         return (ebeam**2 + undulator**2)**0.5
+    
+    def difflimited_spot(self, n=1, theta=0):
+        undulator = self.undulator
+        return (self.lamda_n(n=n, theta=theta) / undulator.L)**0.5
+    
+    def difflimited_div(self, n=1, theta=0):
+        undulator = self.undulator
+        return (self.lamda_n(n=n, theta=theta) * undulator.L)**0.5 / 2*pi
 
 if __name__=="__main__":
     print(m, hc)
