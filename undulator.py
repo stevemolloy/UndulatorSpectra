@@ -145,6 +145,28 @@ class Beamline:
         spot_sqr = self.difflimited_div(n=n, theta=theta)**2
         spot_sqr += beam.sigxp()**2
         return spot_sqr**0.5
+    
+    def brightness(self, n=1, theta=0):
+        sigx = self.source_spot_x(n, theta)
+        sigxp = self.source_div_x(n, theta)
+        sigy = self.source_spot_y(n, theta)
+        sigyp = self.source_div_y(n, theta)
+        centre_freq = c / self.lamda_n(n)
+        high_freq = c / (self.lamda_n(n) - self.spectralwidth_total(n))
+        delta_f = high_freq - centre_freq
+        frac_freqdiff = delta_f / centre_freq
+        return 1 / (sigx * sigxp * sigy * sigyp * frac_freqdiff)
+    
+    def brightness_max(self, n=1, theta=0):
+        sigx = self.difflimited_spot(n, theta)
+        sigy = sigx
+        sigxp = self.difflimited_div(n, theta)
+        sigyp = sigxp
+        centre_freq = c / self.lamda_n(n)
+        high_freq = c / (self.lamda_n(n) - self.spectralwidth_undulator(n))
+        delta_f = high_freq - centre_freq
+        frac_freqdiff = delta_f / centre_freq
+        return 1 / (sigx * sigxp * sigy * sigyp * frac_freqdiff)
 
 if __name__=="__main__":
     print(m, hc)
