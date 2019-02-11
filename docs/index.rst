@@ -19,7 +19,18 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. automodule:: undulator.undulator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 .. automodule:: undulator.ebeam
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. automodule:: undulator.utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
