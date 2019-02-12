@@ -1,5 +1,5 @@
 undulator module
-============
+================
 
 .. automodule:: undulator.undulator
    :members:

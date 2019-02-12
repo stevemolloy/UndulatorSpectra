@@ -16,6 +16,8 @@ def sig(emit: float, beta: float) -> float:
     >>> sig(8e-12, 4.7)
     6.131883886702356e-06
     '''
+    if emit<0 or beta<0:
+        raise ValueError('Inputs emit and beta must be >=0')
     return (emit * beta)**0.5
 
 def sigp(emit: float, beta: float) -> float:
@@ -34,6 +36,8 @@ def sigp(emit: float, beta: float) -> float:
     >>> sigp(8e-12, 4.7)
     1.3046561461068843e-06
     '''
+    if emit<0 or beta<0:
+        raise ValueError('Inputs emit and beta must be >=0')
     return (emit / beta)**0.5
 
 def beamgamma(energy: float) -> float:
@@ -51,6 +55,8 @@ def beamgamma(energy: float) -> float:
     >>> beamgamma(3e9)
     5870.85359354739
     '''
+    if energy < m:
+        raise ValueError('Energy cannot be less than the rest-mass')
     return energy / m
 
 if __name__ == "__main__":
