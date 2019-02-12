@@ -7,30 +7,14 @@ Welcome to PyUR's documentation!
 ================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
 
-
+   ebeam
+   undulator
+   utilities
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
-
-.. automodule:: undulator.undulator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: undulator.ebeam
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: undulator.utilities
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
