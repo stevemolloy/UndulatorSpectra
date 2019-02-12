@@ -1,5 +1,5 @@
 utilities module
-============
+================
 
 .. automodule:: undulator.utilities
    :members:
