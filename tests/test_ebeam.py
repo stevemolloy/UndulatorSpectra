@@ -1,4 +1,6 @@
 import unittest
+from hypothesis import given
+from hypothesis.strategies import floats
 import sys
 sys.path.append('..')
 from undulator.ebeam import sig, sigp, beamgamma, m
@@ -20,15 +22,17 @@ class TestSigFunction(unittest.TestCase):
         '''
         self.assertAlmostEqual(sig(340e-12, 9.0), 5.531727e-5)
 
-    def test_negative_emit_valueerror(self):
+    @given(val=floats(max_value=0, exclude_max=True))
+    def test_negative_emit_valueerror(self, val):
         '''Negative emit value is an error'''
         with self.assertRaises(ValueError):
-            sig(-1, 1)
+            sig(val, 1)
 
-    def test_negative_beta_valueerror(self):
+    @given(val=floats(max_value=0, exclude_max=True))
+    def test_negative_beta_valueerror(self, val):
         '''Negative beta value is an error'''
         with self.assertRaises(ValueError):
-            sig(1, -1)
+            sig(1, val)
 
 
 class TestSigpFunction(unittest.TestCase):
@@ -47,15 +51,17 @@ class TestSigpFunction(unittest.TestCase):
         '''
         self.assertAlmostEqual(sigp(340e-12, 9.0), 6.146363e-6)
 
-    def test_negative_emit_valueerror(self):
+    @given(val=floats(max_value=0, exclude_max=True))
+    def test_negative_emit_valueerror(self, val):
         '''Negative emit value is an error'''
         with self.assertRaises(ValueError):
-            sig(-1, 1)
+            sig(val, 1)
 
-    def test_negative_beta_valueerror(self):
+    @given(val=floats(max_value=0, exclude_max=True))
+    def test_negative_beta_valueerror(self, val):
         '''Negative beta value is an error'''
         with self.assertRaises(ValueError):
-            sig(1, -1)
+            sig(1, val)
 
 
 class TestBeamGammaFunction(unittest.TestCase):
@@ -67,9 +73,11 @@ class TestBeamGammaFunction(unittest.TestCase):
     def test_restframe_gamma(self):
         self.assertEqual(beamgamma(m), 1.0)
 
-    def test_nonphysical_energy(self):
+    @given(val=floats(max_value=m, exclude_max=True))
+    def test_nonphysical_energy(self, val):
+        '''Hypothesis ensures that val<m'''
         with self.assertRaises(ValueError):
-            beamgamma(m * 0.99)
+            beamgamma(val)
 
 
 if __name__=='__main__':

@@ -2,3 +2,5 @@
 __pycache__
 _build
 *mypy_cache*
+.coverage
+.hypothesis
