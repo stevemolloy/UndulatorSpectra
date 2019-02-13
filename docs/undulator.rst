@@ -41,6 +41,7 @@ In many texts, the width of the spectrum due to the :math:`\frac{\sin\left(Nx\ri
 .. math:: \frac{\sin\left(Nx\right)}{Nx} = \sqrt{\frac{1}{2}} \Longrightarrow \frac{\Delta\omega_n}{\omega_n}=\frac{0.225079}{N_p}
 
 This results in a spectral width, :math:`\sigma_{\lambda_{n,u}}`, due to the finite number of periods in the undulator of,
+
 .. math:: \sigma_{\lambda_{n,u}} = 0.225079\frac{1}{nN_p}\lambda_n
 
 Total spectral width
