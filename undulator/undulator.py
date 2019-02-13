@@ -63,11 +63,20 @@ class Undulator:
         return 'Undulator(' + insdev_repr + ', ' + beam_repr + ')'
 
     def lamda_n(self, n: int=1, theta: float=0):
+        '''
+        Calculate the wavelength of the nth harmonic
+        '''
+        if n>50:
+            raise ValueError('Harmonics higher than 50 are likely to be' +
+                    'non-physical')
         gamma = beamgamma(self.beam.energy)
         unscaled = self.insdev.period / (2 * n * gamma**2)
         return unscaled * (1 + self.insdev.Kmax**2 + (gamma*theta)**2)
 
     def energy_n(self, n: int=1, theta: float=0) -> float:
+        '''
+        Calculate the photon energy of the nth harmonic
+        '''
         return wavelength2energy(self.lamda_n(n=n, theta=theta))
 
     def d2l_dtheta2(self, n: int=1) -> float:

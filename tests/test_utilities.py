@@ -44,7 +44,7 @@ class TestWavelength2Energy(unittest.TestCase):
         Wavelengths less than 1e-15 are considered to be zero
         '''
         with self.assertRaises(ValueError):
-            wavelength2energy(0.9e-15)
+            wavelength2energy(0.9e-25)
         with self.assertRaises(ValueError):
             wavelength2energy(0)
 

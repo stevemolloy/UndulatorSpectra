@@ -17,9 +17,9 @@ def wavelength2energy(wavelength: float) -> float:
     '''
     if wavelength < 0:
         raise ValueError('Negative wavelengths are unphysical')
-    if wavelength < 1e-15:
+    if wavelength < 1e-25:
         raise ValueError(
-                'Wavelengths less than 1e-15 m could' +
+                'Wavelengths less than 1e-25 m could' +
                 'lead to floating point errors'
                 )
     if wavelength == float('inf'):

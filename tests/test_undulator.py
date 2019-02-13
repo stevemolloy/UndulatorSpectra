@@ -1,5 +1,6 @@
 import unittest
 from hypothesis import given
+from hypothesis.strategies import integers
 import sys
 sys.path.append('..')
 from undulator.undulator import Undulator
@@ -9,10 +10,10 @@ class TestSigFunction(unittest.TestCase):
 
     def setUp(self):
         self.insdev = {
-                'period': 15e-3,
+                'period': 18e-3,
                 'Kmax': 1.38,
                 'Np': 111,
-                'L': 15e-3*111
+                'L': 18e-3*111
                 }
         self.beam = {
             'energy': 3e9,
@@ -35,6 +36,40 @@ class TestSigFunction(unittest.TestCase):
         for key, val in self.beam.items():
             val_in_ID = getattr(self.ID.beam, key)
             self.assertEqual(val_in_ID, val)
+
+    def test_nanomax_lamdan(self):
+        '''
+        Make sure the harmonic matches the NanoMAX params
+        '''
+        actual_value = self.ID.lamda_n()
+        expected_value = 0.7583967046157e-9
+        self.assertAlmostEqual(actual_value/expected_value, 1.0)
+
+    def test_nanomax_energyn(self):
+        '''
+        Make sure the harmonic matches the NanoMAX params
+        '''
+        actual_value = self.ID.energy_n()
+        expected_value = 1634.81983296
+        self.assertAlmostEqual(actual_value, expected_value)
+
+    @given(val=integers(min_value=1, max_value=50))
+    def test_harmonic_wavelengths(self, val):
+        expected_value = self.ID.lamda_n(n=1) / val
+        actual_value = self.ID.lamda_n(n=val)
+        self.assertAlmostEqual(expected_value/actual_value, 1)
+
+    @given(val=integers(min_value=1, max_value=50))
+    def test_harmonic_energy(self, val):
+        expected_value = self.ID.energy_n(n=1) * val
+        actual_value = self.ID.energy_n(n=val)
+        self.assertAlmostEqual(expected_value/actual_value, 1)
+
+    @given(val=integers(min_value=1, max_value=50))
+    def test_spectralwidth_undulator(self, val):
+        expected_value = (0.225079/(val*self.ID.insdev.Np)) * self.ID.lamda_n(n=val)
+        actual_value = self.ID.spectralwidth_undulator(n=val)
+        self.assertAlmostEqual(expected_value/actual_value, 1)
 
 
 if __name__=='__main__':
