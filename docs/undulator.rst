@@ -15,7 +15,7 @@ From this, the photo energy, :math:`E_\gamma`, can be calculated (where :math:`h
 There are two primary contributors to the width of each spectral line: the finite number of undulator periods, and the spread of the beam parameters that appear in that expression (i.e., the electron energy and divergence).
 
 Beam contribution
------------------
+~~~~~~~~~~~~~~~~~
 The width, :math:`\sigma_{\lambda_{n,b}}`, due to the electron beam parameter spreads is calculated from a Taylor expansion of the :math:`\lambda_n` expression.
 
 .. math:: \Delta\lambda_n = \frac{\partial\lambda_n}{\partial \gamma} \Bigr|_{\substack{\gamma=\gamma_0}} \cdot \Delta\gamma + \frac{\partial\lambda_n}{\partial\Theta}\Bigr|_{\substack{\Theta=0}}\cdot\Delta\Theta + \frac{1}{2}\frac{\partial^2\lambda_n}{\partial\Theta^2}\Bigr|_{\substack{\Theta=0}}\cdot\Delta\Theta^2
@@ -31,7 +31,7 @@ To calculate the RMS spread, it is assumed that the distributions of the energy-
 .. math:: \sigma_{\lambda_{n,b}}^2 = \left(-\frac{1}{n}\frac{1}{\gamma_0^3}\left(1+K_w^2\right)\lambda_w\cdot\Delta\gamma\right)^2 + \left(\frac{1}{2}\frac{1}{n}\lambda_w\cdot\Delta\Theta^2\right)^2
 
 Undulator contribution
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 The energy spectrum, :math:`\frac{dW_n}{d\omega}`, of the :math:`n`-th harmonic goes as follows.
 
 .. math:: \frac{dW_n}{d\omega} \propto \left(\frac{\sin\left(\pi N_p \frac{\Delta\omega_n}{\omega_1}\right)}{\pi N_p \frac{\Delta\omega_n}{\omega_n}}\right)^2
@@ -45,17 +45,17 @@ This results in a spectral width, :math:`\sigma_{\lambda_{n,u}}`, due to the fin
 .. math:: \sigma_{\lambda_{n,u}} = 0.225079\frac{1}{nN_p}\lambda_n
 
 Total spectral width
---------------------
+~~~~~~~~~~~~~~~~~~~~
 The beam contribution and the undulator contribution should be convoluted to optain the total width, however it is enough to add the contributions in quadrature.
 
 .. math:: \sigma_{\lambda_{n,total}}^2 = \left(-\frac{1}{n}\frac{1}{\gamma_0^3}\left(1+K_w^2\right)\lambda_w\cdot\Delta\gamma\right)^2 + \left(\frac{1}{2}\frac{1}{n}\lambda_w\cdot\Delta\Theta^2\right)^2 + \left(0.225079\frac{1}{nN_p}\lambda_n\right)^2
 
 Transverse Size
-===============
+---------------
 The transverse size of the apparent source of the undulator light is a combination of the diffraction limited spot size and the transverse size fna divergence of the electron beam as it transits the undulator."
 
 Diffraction limited source size
--------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The diffraction limited spot size, :math:`\sigma_{diff}`, can be shown to be the following.
 
 .. math:: \sigma_{diff} = \frac{1}{2\pi}\sqrt{\frac{1}{2}\lambda_nL}
@@ -65,7 +65,7 @@ With the diffraction limited divergence, :math:`\sigma'_{diff}`, being.
 .. math:: \sigma'_{diff} = \frac{1}{2\pi}\sqrt{\frac{1}{2}\frac{\lambda_n}{L}}
 
 Total source size
------------------
+~~~~~~~~~~~~~~~~~
 The total source size is the quadrature sum of several components:
 1. The diffraction limited source size, :math:`\sigma_{diff}`, as given above.
 2. The RMS size, :math:`\sigma_{b:x,y,x',y'}`, of the electron bunch in that plane of motion.
@@ -79,7 +79,7 @@ Note that the divergence of the electron beam is not affected by the undulator, 
 .. math:: \sigma_{x',y'}^2 = \sigma_{diff}'^2 +  \sigma_{b:x',y'}^2
 
 Methods
-=======
+-------
 .. automodule:: undulator.undulator
    :members:
    :undoc-members:
