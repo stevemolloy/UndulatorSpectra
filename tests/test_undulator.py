@@ -86,6 +86,15 @@ class TestSigFunction(unittest.TestCase):
         expected_value = self.ID.lamda_n(n=val) / self.ID.insdev.L
         self.assertAlmostEqual(expected_value/actual_value, 1)
 
+    def test_sourcespot_plane_must_be_right(self):
+        '''
+        Test all latin input chars except lowercase 'x' and 'y'
+        '''
+        alfa = 'abcdefghijkjlmnopqrstuvwz'
+        for c in alfa + alfa.upper() + 'XY':
+            with self.assertRaises(ValueError):
+                self.ID.source_spot(plane=c)
+
 
 if __name__=='__main__':
     unittest.main()

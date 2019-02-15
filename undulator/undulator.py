@@ -121,10 +121,10 @@ class Undulator:
     def source_spot(self, plane: str, n: int=1, theta: float=0) -> float:
         insdev = self.insdev
         gamma = beamgamma(self.beam.energy)
-        if 'plane' == 'y':
+        if plane == 'y':
             beta = self.beam.betay
             emit = self.beam.emity
-        elif 'plane' == 'x':
+        elif plane == 'x':
             beta = self.beam.betax
             emit = self.beam.emitx
         else:
@@ -137,10 +137,10 @@ class Undulator:
         return spot_sqr**0.5
 
     def source_div(self, plane: str, n: int=1, theta: float=0) -> float:
-        if 'plane' == 'y':
+        if plane == 'y':
             beta = self.beam.betay
             emit = self.beam.emity
-        elif 'plane' == 'x':
+        elif plane == 'x':
             beta = self.beam.betax
             emit = self.beam.emitx
         else:
