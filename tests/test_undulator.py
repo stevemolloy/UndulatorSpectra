@@ -1,6 +1,7 @@
 import unittest
 from hypothesis import given
 from hypothesis.strategies import integers
+from math import pi
 import sys
 sys.path.append('..')
 from undulator.undulator import Undulator
@@ -69,6 +70,12 @@ class TestSigFunction(unittest.TestCase):
     def test_spectralwidth_undulator(self, val):
         expected_value = (0.225079/(val*self.ID.insdev.Np)) * self.ID.lamda_n(n=val)
         actual_value = self.ID.spectralwidth_undulator(n=val)
+        self.assertAlmostEqual(expected_value/actual_value, 1)
+
+    def test_diffspotsize(self):
+        spotsize = self.ID.difflimited_spot()
+        actual_value= (spotsize *4*pi)**2
+        expected_value = self.ID.lamda_n() * self.ID.insdev.L
         self.assertAlmostEqual(expected_value/actual_value, 1)
 
 
