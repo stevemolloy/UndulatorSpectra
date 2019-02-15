@@ -72,10 +72,11 @@ class TestSigFunction(unittest.TestCase):
         actual_value = self.ID.spectralwidth_undulator(n=val)
         self.assertAlmostEqual(expected_value/actual_value, 1)
 
-    def test_diffspotsize(self):
-        spotsize = self.ID.difflimited_spot()
+    @given(val=integers(min_value=1, max_value=50))
+    def test_diffspotsize(self, val):
+        spotsize = self.ID.difflimited_spot(n=val)
         actual_value= (spotsize *4*pi)**2
-        expected_value = self.ID.lamda_n() * self.ID.insdev.L
+        expected_value = self.ID.lamda_n(n=val) * self.ID.insdev.L
         self.assertAlmostEqual(expected_value/actual_value, 1)
 
 
