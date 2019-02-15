@@ -104,15 +104,19 @@ class Undulator:
         undulator = self.spectralwidth_undulator(n, theta)
         return (ebeam**2 + undulator**2)**0.5
 
-    # TODO: Fix this
-    def difflimited_spot(self, n: int=1, theta: float=0) -> float:
+    def difflimited_spot(self, n: int=1) -> float:
+        '''
+        https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/CLarke-Lecture-3.pdf
+        '''
         L = self.insdev.L
-        return (0.5 * self.lamda_n(n=n, theta=theta) * L)**0.5
+        return (1/(4*pi)) * (self.lamda_n(n=n, theta=0) * L)**0.5
 
-    # TODO: Fix this
-    def difflimited_div(self, n: int=1, theta: float=0) -> float:
+    def difflimited_div(self, n: int=1) -> float:
+        '''
+        https://www.cockcroft.ac.uk/wp-content/uploads/2014/12/CLarke-Lecture-3.pdf
+        '''
         L = self.insdev.L
-        return (0.5 * self.lamda_n(n=n, theta=theta) / L)**0.5 / (2*pi)
+        return (self.lamda_n(n=n, theta=0) / L)**0.5
 
     def source_spot(self, plane: str, n: int=1, theta: float=0) -> float:
         insdev = self.insdev
@@ -126,7 +130,7 @@ class Undulator:
         else:
             raise ValueError("'plane' must be 'x' or 'y'")
         osc_amplitude = insdev.period*insdev.Kmax / (2*pi*gamma)
-        spot_sqr = self.difflimited_spot(n=n, theta=theta)**2
+        spot_sqr = self.difflimited_spot(n=n)**2
         spot_sqr += sig(emit, beta)**2
         spot_sqr += osc_amplitude**2
         spot_sqr += (1/12) * sigp(emit, beta)**2 * insdev.L**2
@@ -141,7 +145,7 @@ class Undulator:
             emit = self.beam.emitx
         else:
             raise ValueError("'plane' must be 'x' or 'y'")
-        spot_sqr = self.difflimited_div(n=n, theta=theta)**2
+        spot_sqr = self.difflimited_div(n=n)**2
         spot_sqr += sigp(emit, beta)**2
         return spot_sqr**0.5
 
