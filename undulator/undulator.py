@@ -119,8 +119,6 @@ class Undulator:
         return (self.lamda_n(n=n, theta=0) / L)**0.5
 
     def source_spot(self, plane: str, n: int=1, theta: float=0) -> float:
-        insdev = self.insdev
-        gamma = beamgamma(self.beam.energy)
         if plane == 'y':
             beta = self.beam.betay
             emit = self.beam.emity
@@ -129,6 +127,8 @@ class Undulator:
             emit = self.beam.emitx
         else:
             raise ValueError("'plane' must be 'x' or 'y'")
+        insdev = self.insdev
+        gamma = beamgamma(self.beam.energy)
         osc_amplitude = insdev.period*insdev.Kmax / (2*pi*gamma)
         spot_sqr = self.difflimited_spot(n=n)**2
         spot_sqr += sig(emit, beta)**2

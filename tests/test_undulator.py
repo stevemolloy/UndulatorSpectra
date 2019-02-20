@@ -7,6 +7,10 @@ sys.path.append('..')
 from undulator.undulator import Undulator
 
 
+def quadrature_sum(*args):
+    return sum(v**2 for v in args)**0.5
+
+
 class TestSigFunction(unittest.TestCase):
 
     def setUp(self):
