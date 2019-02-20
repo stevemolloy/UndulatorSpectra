@@ -8,15 +8,29 @@ Welcome to PyUR's documentation!
 
 Spectral properties
 -------------------
-The wavelength, :math:`\lambda_n`, of a particular harmonic, :math:`n`, when viewed with an angle, :math:`\theta`, with respect to the forward direction is calculated as follows.
+An electron beam with energy, :math:`E_0=\gamma_0mc^2`, will produce radiation when passing through an insertion device with undulator characteristic, :math:`K`, and magnetic period, :math:`\lambda_w`. The wavelength, :math:`\lambda_n`, of a particular harmonic, :math:`n`, of this radiation, when viewed with an angle, :math:`\theta`, with respect to the forward direction is calculated as follows.
 
-.. math:: \lambda_n = \frac{\lambda_w}{2n\gamma_0^2}\left(1 + K_{max}^2 + \gamma_0^2\theta^2\right)
+.. math:: \lambda_n = \frac{\lambda_w}{2n\gamma_0^2}\left(1 + K^2 + \gamma_0^2\theta^2\right)
 
 From this, the photon energy, :math:`E_\gamma`, can be calculated (where :math:`h`, :math:`c`, and :math:`e`, are the usual physical constants).
 
 .. math:: E_\gamma = \frac{hc}{e}\frac{1}{\lambda_n}
 
 There are two primary contributors to the width of each spectral line: the finite number of undulator periods, and the spread of the beam parameters that appear in that expression (i.e., the electron energy and divergence).
+
+Undulator contribution
+~~~~~~~~~~~~~~~~~~~~~~
+The energy spectrum, :math:`\frac{dW_n}{d\omega}`, of the :math:`n`-th harmonic goes as follows.
+
+.. math:: \frac{dW_n}{d\omega} \propto \left(\frac{\sin\left(\pi N_p \frac{\Delta\omega_n}{\omega_1}\right)}{\pi N_p \frac{\Delta\omega_n}{\omega_n}}\right)^2
+
+In many texts, the width of the spectrum due to the :math:`\frac{\sin\left(Nx\right)}{Nx}` is often approximated as the point at which this function first passes through zero.  This solution results in, :math:`\frac{\Delta\omega_n}{\omega_n}=\pm\frac{1}{nN_p}`.  Unfortunately this does not match well with the RMS widths used elsewhere in the code, and so a different point is chosen.
+
+.. math:: \frac{\sin\left(Nx\right)}{Nx} = \sqrt{\frac{1}{\exp{\left(1\right)}}} \Longrightarrow \frac{\Delta\omega_n}{\omega_n}=\frac{0.193065}{N_p}
+
+This results in a spectral width, :math:`\sigma_{\lambda_{n,u}}`, due to the finite number of periods in the undulator of,
+
+.. math:: \sigma_{\lambda_{n,u}} = 0.193065\frac{1}{nN_p}\lambda_n
 
 Beam contribution
 ~~~~~~~~~~~~~~~~~
@@ -33,20 +47,6 @@ The width, :math:`\sigma_{\lambda_{n,b}}`, due to the electron beam parameter sp
 To calculate the RMS spread, it is assumed that the distributions of the energy-spread and the angular divergence are uncorrelated, and so can be added in quadrature.
 
 .. math:: \sigma_{\lambda_{n,b}}^2 = \left(-\frac{1}{n}\frac{1}{\gamma_0^3}\left(1+K_w^2\right)\lambda_w\cdot\Delta\gamma\right)^2 + \left(\frac{1}{2}\frac{1}{n}\lambda_w\cdot\Delta\Theta^2\right)^2
-
-Undulator contribution
-~~~~~~~~~~~~~~~~~~~~~~
-The energy spectrum, :math:`\frac{dW_n}{d\omega}`, of the :math:`n`-th harmonic goes as follows.
-
-.. math:: \frac{dW_n}{d\omega} \propto \left(\frac{\sin\left(\pi N_p \frac{\Delta\omega_n}{\omega_1}\right)}{\pi N_p \frac{\Delta\omega_n}{\omega_n}}\right)^2
-
-In many texts, the width of the spectrum due to the :math:`\frac{\sin\left(Nx\right)}{Nx}` is often approximated as the point at which this function first passes through zero.  This solution results in, :math:`\frac{\Delta\omega_n}{\omega_n}=\pm\frac{1}{nN_p}`.  Unfortunately this does not match well with the RMS widths used elsewhere in the code, and so a different point is chosen.
-
-.. math:: \frac{\sin\left(Nx\right)}{Nx} = \sqrt{\frac{1}{2}} \Longrightarrow \frac{\Delta\omega_n}{\omega_n}=\frac{0.225079}{N_p}
-
-This results in a spectral width, :math:`\sigma_{\lambda_{n,u}}`, due to the finite number of periods in the undulator of,
-
-.. math:: \sigma_{\lambda_{n,u}} = 0.225079\frac{1}{nN_p}\lambda_n
 
 Total spectral width
 ~~~~~~~~~~~~~~~~~~~~

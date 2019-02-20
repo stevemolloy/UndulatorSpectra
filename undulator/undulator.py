@@ -96,7 +96,7 @@ class Undulator:
         return (disp_term**2 + energy_term**2)**0.5
 
     def spectralwidth_undulator(self, n: int=1, theta: float=0) -> float:
-        magic_num = 0.225079 # solve sinc(pi.N.x) = sqrt(0.5)
+        magic_num = 0.193065 # solve sinc(pi.N.x) = sqrt(1/exp(1))
         return magic_num * self.lamda_n(n, theta) / (n * self.insdev.Np)
 
     def spectralwidth_total(self, n: int=1, theta: float=0) -> float:

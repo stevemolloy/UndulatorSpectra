@@ -72,7 +72,7 @@ class TestSigFunction(unittest.TestCase):
 
     @given(val=integers(min_value=1, max_value=50))
     def test_spectralwidth_undulator(self, val):
-        expected_value = (0.225079/(val*self.ID.insdev.Np)) * self.ID.lamda_n(n=val)
+        expected_value = (0.193065 /(val*self.ID.insdev.Np)) * self.ID.lamda_n(n=val)
         actual_value = self.ID.spectralwidth_undulator(n=val)
         self.assertAlmostEqual(expected_value/actual_value, 1)
 
