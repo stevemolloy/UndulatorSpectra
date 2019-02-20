@@ -50,30 +50,31 @@ To calculate the RMS spread, it is assumed that the distributions of the energy-
 
 Total spectral width
 ~~~~~~~~~~~~~~~~~~~~
-The beam contribution and the undulator contribution should be convoluted to optain the total width, however it is enough to add the contributions in quadrature.
+The beam contribution and the undulator contribution should be convoluted to obtain the total width, however it is enough to add the contributions in quadrature.
 
 .. math:: \sigma_{\lambda_{n,total}}^2 = \left(-\frac{1}{n}\frac{1}{\gamma_0^3}\left(1+K_w^2\right)\lambda_w\cdot\Delta\gamma\right)^2 + \left(\frac{1}{2}\frac{1}{n}\lambda_w\cdot\Delta\Theta^2\right)^2 + \left(0.225079\frac{1}{nN_p}\lambda_n\right)^2
 
 Transverse Size
 ---------------
-The transverse size of the apparent source of the undulator light is a combination of the diffraction limited spot size and the transverse size fna divergence of the electron beam as it transits the undulator."
+The transverse size of the apparent source of the undulator light is a combination of the diffraction limited spot size and the transverse size and divergence of the electron beam as it transits the undulator."
 
 Diffraction limited source size
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The diffraction limited spot size, :math:`\sigma_{diff}`, can be shown to be the following.
 
-.. math:: \sigma_{diff} = \frac{1}{2\pi}\sqrt{\frac{1}{2}\lambda_nL}
+.. math:: \sigma_{diff} = \frac{1}{4\pi}\sqrt{\lambda_nL}
 
 With the diffraction limited divergence, :math:`\sigma'_{diff}`, being.
 
-.. math:: \sigma'_{diff} = \frac{1}{2\pi}\sqrt{\frac{1}{2}\frac{\lambda_n}{L}}
+.. math:: \sigma'_{diff} = \sqrt{\frac{\lambda_n}{L}}
 
 Total source size
 ~~~~~~~~~~~~~~~~~
 The total source size is the quadrature sum of several components:
+
 1. The diffraction limited source size, :math:`\sigma_{diff}`, as given above.
 2. The RMS size, :math:`\sigma_{b:x,y,x',y'}`, of the electron bunch in that plane of motion.
-3. The average change in size of the bunch (in that plane of motion) as it traverses the undulator.  Note this is only true with the assumption that the electron beam optics lead to a waist within the undulator.
+3. The average change in size of the bunch (in that plane of motion) as it traverses the undulator.
 4. The apparent increase in size due to the oscillating path of the bunch within the undulator.
 
 Note that the divergence of the electron beam is not affected by the undulator, and so only the first two points apply to the apparent source divergence.
